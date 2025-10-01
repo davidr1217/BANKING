@@ -4,6 +4,7 @@ from django.db import models
 class Country(models.Model):
     name = models.CharField(max_length=100)
     abrev = models.CharField(max_length=10, blank=True, null=True)
+    status = models.BooleanField(default=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
