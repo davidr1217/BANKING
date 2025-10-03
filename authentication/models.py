@@ -9,8 +9,8 @@ class Country(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} {self.abrev}"
-        #{"Active" if self.status else "Inactive"}"
+        return f"{self.name or "Unnamed Country"} {self.abrev or "Unnamed Country"}{'Active' if self.status else 'Inactive'}"
+        
     
 class Department(models.Model):
     name = models.CharField(max_length=100)
@@ -20,7 +20,8 @@ class Department(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
-    
+    def __str__(self):
+        return self.name or "Unnamed Department"
     
 class City(models.Model):
     name = models.CharField(max_length=100)
@@ -29,7 +30,9 @@ class City(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    
+    def __str__(self):
+        return self.name or "Unnamed City"
+
 class User(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50, blank=True, null=True)
@@ -42,5 +45,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.firstname} {self.lastname or ''}"
 
-   
