@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from  environs import Env
 
-#star env variables
+from environs import Env
+
 env = Env()
 env.read_env()
 
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!fm+$7h3%x0vom&iw1qz5pm!ot&o5g(t4pz&6w!!b8j$7&53jy'
+SECRET_KEY = 'django-insecure-b!e#w%k*8%v_tq3ynz7veiv)#2sz1v9f1z4z_9@g0=3aft2(fm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'banking.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # agrega esta línea,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +71,10 @@ TEMPLATES = [
         },
     },
 ]
-
+# STATIC FILES CONFIGURATION
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']  
+STATIC_ROOT = BASE_DIR / 'staticfiles'   
 WSGI_APPLICATION = 'banking.wsgi.application'
 
 
@@ -79,26 +82,30 @@ WSGI_APPLICATION = 'banking.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    
-    'local2': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST' : env('DB_HOST', default ='localhost'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'PORT': env('DB_PORT', default='5433'),
-    },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST':'aws-1-us-east-2.pooler.supabase.com' ,
-        'NAME': 'postgres',
-        'USER': 'postgres.hfkljxcwfdzddpazvdsr',
-        'PASSWORD': 'unicesmag',
-        'PORT': '6543',
-    },
-    'local': {
+   'local2':{
+       'ENGINE': 'django.db.backends.postgresql', 
+       'NAME': env('DB_NAME'),
+       'USER': env('DB_USER'),
+       'PASSWORD' : env('DB_PASSWORD'),
+       'HOST': env('DB_HOST',default='localhost'),
+       'PORT': env('DB_PORT', default='5433'),
+
+   },
+
+   'default':{
+    'ENGINE': 'django.db.backends.postgresql', 
+      'NAME': env('DB_NAME'),
+       'USER': env('DB_USER'),
+       'PASSWORD': env('DB_PASSWORD'),
+       'HOST': env('DB_HOST'),
+       'PORT': env('DB_PORT'),
+
+  },
+   
+   
+      'local': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'banking.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
