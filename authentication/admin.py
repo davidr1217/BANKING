@@ -8,8 +8,8 @@ from.models import Country,Department,City,User
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    display_data = ("name", "abrev", "get_status")
+    display_data = ('name', 'abrev')
 
     def get_status(self, obj):
         return "Active" if obj.status else "Inactive"
-    get_status.short_description = "Status" #table label
+    get_status.short_description = 'Status' #Table label  
